@@ -1,0 +1,10 @@
+{
+  "current": {
+    "store_description": "Welcome to our store"
+  },
+  "presets": {
+    "Default": {
+      "store_description": "Welcome to our store"
+    }
+  }
+}

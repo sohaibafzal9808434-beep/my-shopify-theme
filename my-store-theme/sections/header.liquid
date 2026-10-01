@@ -1,0 +1,45 @@
+<header class="site-header">
+
+  <div class="header-container">
+
+    <a href="{{ routes.root_url }}" class="site-logo">
+      {{ shop.name }}
+    </a>
+
+    <nav class="main-nav">
+
+      <a href="{{ routes.root_url }}">
+        Home
+      </a>
+
+      <a href="/collections/all">
+        Shop
+      </a>
+
+      <a href="/pages/about">
+        About
+      </a>
+
+      <a href="/pages/contact">
+        Contact
+      </a>
+
+    </nav>
+
+    <a href="{{ routes.cart_url }}" class="cart-link">
+      Cart
+      <span>
+        ({{ cart.item_count }})
+      </span>
+    </a>
+
+  </div>
+
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": []
+}
+{% endschema %}

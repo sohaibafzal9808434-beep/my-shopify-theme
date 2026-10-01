@@ -1,0 +1,46 @@
+<footer class="site-footer">
+
+  <div class="footer-container">
+
+    <div>
+      <h2>{{ shop.name }}</h2>
+
+      <p>
+        Your trusted online store.
+      </p>
+    </div>
+
+    <div class="footer-links">
+
+      <a href="{{ routes.root_url }}">
+        Home
+      </a>
+
+      <a href="/collections/all">
+        Shop
+      </a>
+
+      <a href="/pages/about">
+        About
+      </a>
+
+      <a href="/pages/contact">
+        Contact
+      </a>
+
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.
+  </div>
+
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": []
+}
+{% endschema %}
