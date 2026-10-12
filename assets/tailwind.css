@@ -23,6 +23,9 @@
     --container-xl: 36rem;
     --container-2xl: 42rem;
     --container-6xl: 72rem;
+    --container-7xl: 80rem;
+    --text-xs: 0.75rem;
+    --text-xs--line-height: calc(1 / 0.75);
     --text-sm: 0.875rem;
     --text-sm--line-height: calc(1.25 / 0.875);
     --text-base: 1rem;
@@ -231,6 +234,9 @@
   .inline-block {
     display: inline-block;
   }
+  .inline-flex {
+    display: inline-flex;
+  }
   .table {
     display: table;
   }
@@ -239,6 +245,9 @@
   }
   .max-w-6xl {
     max-width: var(--container-6xl);
+  }
+  .max-w-7xl {
+    max-width: var(--container-7xl);
   }
   .max-w-xl {
     max-width: var(--container-xl);
@@ -252,11 +261,35 @@
   .resize {
     resize: both;
   }
+  .flex-col {
+    flex-direction: column;
+  }
   .flex-wrap {
     flex-wrap: wrap;
   }
+  .items-center {
+    align-items: center;
+  }
+  .justify-between {
+    justify-content: space-between;
+  }
+  .justify-center {
+    justify-content: center;
+  }
+  .gap-2 {
+    gap: calc(var(--spacing) * 2);
+  }
+  .gap-3 {
+    gap: calc(var(--spacing) * 3);
+  }
   .gap-4 {
     gap: calc(var(--spacing) * 4);
+  }
+  .gap-x-5 {
+    column-gap: calc(var(--spacing) * 5);
+  }
+  .gap-y-2 {
+    row-gap: calc(var(--spacing) * 2);
   }
   .truncate {
     overflow: hidden;
@@ -302,6 +335,9 @@
   }
   .bg-blue-600 {
     background-color: var(--color-blue-600);
+  }
+  .bg-slate-900 {
+    background-color: var(--color-slate-900);
   }
   .bg-white {
     background-color: var(--color-white);
@@ -363,6 +399,10 @@
   .text-sm {
     font-size: var(--text-sm);
     line-height: var(--tw-leading, var(--text-sm--line-height));
+  }
+  .text-xs {
+    font-size: var(--text-xs);
+    line-height: var(--tw-leading, var(--text-xs--line-height));
   }
   .leading-7 {
     --tw-leading: calc(var(--spacing) * 7);
@@ -443,8 +483,20 @@
         background-color: color-mix(in oklab, var(--color-white) 10%, transparent);
       }
     }
+    .hover\:text-blue-300:hover {
+      color: var(--color-blue-300);
+    }
+  }
+  @media (width >= 40rem) {
+    .sm\:text-sm {
+      font-size: var(--text-sm);
+      line-height: var(--tw-leading, var(--text-sm--line-height));
+    }
   }
   @media (width >= 48rem) {
+    .md\:flex-row {
+      flex-direction: row;
+    }
     .md\:py-28 {
       padding-block: calc(var(--spacing) * 28);
     }
