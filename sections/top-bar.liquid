@@ -11,7 +11,7 @@
       {% if section.settings.show_phone and section.settings.phone != blank %}
         <a href="tel:{{ section.settings.phone | remove: ' ' | escape }}" class="inline-flex items-center gap-2 transition hover:text-blue-300">
           {% render 'icon', name: 'phone', size: 16 %}
-          {% render 'icon', name: 'heart', size: 19 %}
+          {% render 'icon', name: 'heart', size: 6 %}
           <span>{{ section.settings.phone | escape }}</span>
         </a>
       {% endif %}
