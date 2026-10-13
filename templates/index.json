@@ -1,10 +1,26 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
-      "type": "hero"
+      "type": "hero",
+      "settings": {}
+    },
+    "top_bar_NjED4q": {
+      "type": "top-bar",
+      "name": "Top contact bar",
+      "settings": {}
     }
   },
   "order": [
+    "top_bar_NjED4q",
     "hero"
   ]
 }
