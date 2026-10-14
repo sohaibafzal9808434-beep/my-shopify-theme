@@ -82,7 +82,7 @@
         "advanced_padding_bottom": 0,
         "advanced_padding_left": 0,
         "advanced_padding_right": 0,
-        "advanced_background": "#8081AE",
+        "advanced_background": "#8081ae",
         "advanced_border_style": "none",
         "advanced_border_width": 0,
         "advanced_border_color": "#dddddd",
@@ -95,10 +95,56 @@
         "advanced_custom_class": "",
         "advanced_custom_css": ""
       }
+    },
+    "product_collection_nXAgcA": {
+      "type": "product-collection",
+      "name": "Product Collection",
+      "settings": {
+        "collection": "",
+        "products_to_show": 8,
+        "heading": "Featured Products",
+        "show_description": false,
+        "description": "<p>Explore our latest products.</p>",
+        "show_view_all": true,
+        "view_all_text": "View all",
+        "columns_desktop": "4",
+        "columns_mobile": "2",
+        "grid_gap": 20,
+        "image_ratio": "square",
+        "image_fit": "cover",
+        "show_hover_image": true,
+        "image_hover_zoom": false,
+        "show_vendor": false,
+        "show_price": true,
+        "show_badges": true,
+        "show_add_to_cart": true,
+        "add_to_cart_text": "Add to cart",
+        "choose_options_text": "Choose options",
+        "sale_badge_text": "Sale",
+        "sold_out_text": "Sold out",
+        "empty_message": "Choose a collection with products to display here.",
+        "heading_size": 32,
+        "product_title_size": 16,
+        "card_padding": 16,
+        "card_text_alignment": "left",
+        "section_background": "#FFFFFF",
+        "heading_color": "#0F172A",
+        "text_color": "#334155",
+        "card_background": "#FFFFFF",
+        "button_background": "#0F172A",
+        "button_text_color": "#FFFFFF",
+        "section_padding_top": 64,
+        "section_padding_bottom": 64,
+        "advanced_width": "full",
+        "advanced_section_id": "",
+        "advanced_custom_class": "",
+        "advanced_custom_css": ""
+      }
     }
   },
   "order": [
     "top_bar_Jpqg7K",
-    "hero"
+    "hero",
+    "product_collection_nXAgcA"
   ]
 }
