@@ -6,27 +6,23 @@
 -%}
 
 {% render 'section-advanced-styles' %}
-
 <footer
   id="advanced-section-{{ adv_dom_id }}"
   class="site-footer advanced-section {{ adv_custom_class }}"
 >
   <div class="footer-container advanced-section__inner">
-
     <div class="footer-brand">
       {% if section.settings.footer_heading != blank %}
         <h2>{{ section.settings.footer_heading | escape }}</h2>
       {% else %}
         <h2>{{ shop.name | escape }}</h2>
       {% endif %}
-
       {% if section.settings.footer_description != blank %}
         <div class="footer-description">
           {{ section.settings.footer_description }}
         </div>
       {% endif %}
     </div>
-
     <nav class="footer-links" aria-label="Footer navigation">
       {% if footer_menu != blank %}
         {% for link in footer_menu.links %}
@@ -41,9 +37,7 @@
         <a href="/pages/contact">Contact</a>
       {% endif %}
     </nav>
-
   </div>
-
   <div class="footer-bottom">
     {{ section.settings.copyright_text | escape }}
     {% if section.settings.show_year %}
