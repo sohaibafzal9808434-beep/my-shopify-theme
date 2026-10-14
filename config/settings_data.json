@@ -46,7 +46,38 @@
       },
       "footer": {
         "type": "footer",
-        "settings": {}
+        "settings": {
+          "footer_heading": "Decor To Adore",
+          "footer_description": "<p>Your trusted online store.</p>",
+          "menu": "",
+          "copyright_text": "©",
+          "show_year": true,
+          "copyright_suffix": ". All rights reserved.",
+          "show_store_name": true,
+          "footer_background": "#0f172a",
+          "footer_text_color": "#ffffff",
+          "footer_link_color": "#cbd5e1",
+          "advanced_width": "full",
+          "advanced_max_width": 1200,
+          "advanced_alignment": "left",
+          "advanced_margin_top": 0,
+          "advanced_margin_bottom": 0,
+          "advanced_padding_top": 32,
+          "advanced_padding_bottom": 32,
+          "advanced_padding_left": 16,
+          "advanced_padding_right": 16,
+          "advanced_border_style": "none",
+          "advanced_border_width": 0,
+          "advanced_border_color": "#dddddd",
+          "advanced_border_radius": 0,
+          "advanced_shadow": "none",
+          "advanced_hide_desktop": false,
+          "advanced_hide_tablet": false,
+          "advanced_hide_mobile": false,
+          "advanced_section_id": "",
+          "advanced_custom_class": "",
+          "advanced_custom_css": ""
+        }
       }
     },
     "content_for_index": []
