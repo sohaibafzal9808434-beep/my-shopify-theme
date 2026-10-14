@@ -1,6 +1,54 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
-    "store_description": "Welcome to our store"
+    "store_description": "Welcome to our store",
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo_width": 150,
+          "logo_text": "Decor To Adore",
+          "menu": "main-menu",
+          "cart_text": "Cart",
+          "advanced_width": "full",
+          "advanced_max_width": 1200,
+          "advanced_alignment": "left",
+          "advanced_margin_top": 0,
+          "advanced_margin_bottom": 0,
+          "advanced_margin_left": 0,
+          "advanced_margin_right": 0,
+          "advanced_padding_top": 0,
+          "advanced_padding_bottom": 0,
+          "advanced_padding_left": 0,
+          "advanced_padding_right": 0,
+          "advanced_background": "#ffffff",
+          "advanced_border_style": "none",
+          "advanced_border_width": 0,
+          "advanced_border_color": "#dddddd",
+          "advanced_border_radius": 0,
+          "advanced_shadow": "none",
+          "advanced_hide_desktop": false,
+          "advanced_hide_tablet": false,
+          "advanced_hide_mobile": false,
+          "advanced_section_id": "",
+          "advanced_custom_class": "",
+          "advanced_custom_css": ""
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {}
+      }
+    },
+    "content_for_index": []
   },
   "presets": {
     "Default": {
