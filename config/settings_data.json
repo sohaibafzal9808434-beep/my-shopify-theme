@@ -14,7 +14,8 @@
       "header": {
         "type": "header",
         "settings": {
-          "logo_width": 150,
+          "logo": "shopify://shop_images/ms-Logo_1.png",
+          "logo_width": 50,
           "logo_text": "Decor To Adore",
           "menu": "main-menu",
           "cart_text": "Cart",
