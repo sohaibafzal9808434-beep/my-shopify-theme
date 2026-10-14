@@ -9,10 +9,6 @@
  */
 {
   "sections": {
-    "hero": {
-      "type": "hero",
-      "settings": {}
-    },
     "top_bar_Jpqg7K": {
       "type": "top-bar",
       "name": "Top contact bar",
@@ -46,7 +42,7 @@
         "advanced_background": "#000000",
         "advanced_border_style": "none",
         "advanced_border_width": 0,
-        "advanced_border_color": "#DDDDDD",
+        "advanced_border_color": "#dddddd",
         "advanced_border_radius": 0,
         "advanced_shadow": "none",
         "advanced_hide_desktop": false,
@@ -57,10 +53,14 @@
         "advanced_custom_class": "",
         "advanced_custom_css": ""
       }
+    },
+    "hero": {
+      "type": "hero",
+      "settings": {}
     }
   },
   "order": [
-    "hero",
-    "top_bar_Jpqg7K"
+    "top_bar_Jpqg7K",
+    "hero"
   ]
 }
