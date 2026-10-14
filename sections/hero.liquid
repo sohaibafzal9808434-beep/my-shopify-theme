@@ -1,35 +1,62 @@
-<section class=" from-slate-900 via-blue-950 to-blue-700 px-6 py-20 md:py-28">
-  <div class="mx-auto max-w-6xl">
-    <div class="max-w-2xl">
-      <span class="inline-block rounded-full border border-blue-300/40 bg-blue-400/10 px-4 py-2 text-sm font-medium text-blue-200">
-        Welcome to Nexus
-      </span>
+```liquid
+{%- liquid
+  assign adv_id = section.settings.advanced_section_id | default: section.id
+  assign adv_dom_id = adv_id | handleize
+  assign adv_custom_class = section.settings.advanced_custom_class | strip
+-%}
 
-      <h1 class="mt-6 text-4xl font-extrabold leading-tight tracking-tight text-white md:text-6xl">
-        Discover Your
-        <span class="text-blue-300">Perfect Style</span>
-      </h1>
+{% render 'section-advanced-styles' %}
 
-      <p class="mt-6 max-w-xl text-base leading-7 text-slate-300 md:text-lg">
-        Explore our latest collection of quality products, timeless designs,
-        and everyday essentials made for you.
-      </p>
+<section
+  id="advanced-section-{{ adv_dom_id }}"
+  class="advanced-section hero-section {{ adv_custom_class }}  from-slate-900 via-blue-950 to-blue-700 px-6 py-20 md:py-28"
+>
+  <div class="hero-container advanced-section__inner mx-auto max-w-6xl">
+    <div class="hero-content max-w-2xl">
 
-      <div class="mt-8 flex flex-wrap gap-4">
-        <a
-          href="{{ routes.all_products_collection_url }}"
-          class="rounded-lg bg-white px-6 py-3 font-semibold text-slate-900 transition hover:bg-blue-100"
-        >
-          Shop Collection
-        </a>
+      {% if section.settings.badge_text != blank %}
+        <span class="hero-badge inline-block rounded-full border border-blue-300/40 bg-blue-400/10 px-4 py-2 text-sm font-medium text-blue-200">
+          {{ section.settings.badge_text | escape }}
+        </span>
+      {% endif %}
 
-        <a
-          href="/pages/about"
-          class="rounded-lg border border-white/40 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
-        >
-          Discover Nexus
-        </a>
+      {% if section.settings.heading != blank %}
+        <h1 class="hero-heading mt-6 text-4xl font-extrabold leading-tight tracking-tight text-white md:text-6xl">
+          {{ section.settings.heading | escape }}
+          {% if section.settings.heading_highlight != blank %}
+            <span class="text-blue-300">
+              {{ section.settings.heading_highlight | escape }}
+            </span>
+          {% endif %}
+        </h1>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <div class="hero-description mt-6 max-w-xl text-base leading-7 text-slate-300 md:text-lg">
+          {{ section.settings.description }}
+        </div>
+      {% endif %}
+
+      <div class="hero-buttons mt-8 flex flex-wrap gap-4">
+        {% if section.settings.primary_button_text != blank %}
+          <a
+            href="{{ section.settings.primary_button_link | default: routes.all_products_collection_url }}"
+            class="hero-button hero-button--primary rounded-lg bg-white px-6 py-3 font-semibold text-slate-900 transition hover:bg-blue-100"
+          >
+            {{ section.settings.primary_button_text | escape }}
+          </a>
+        {% endif %}
+
+        {% if section.settings.secondary_button_text != blank %}
+          <a
+            href="{{ section.settings.secondary_button_link | default: '/pages/about' }}"
+            class="hero-button hero-button--secondary rounded-lg border border-white/40 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
+          >
+            {{ section.settings.secondary_button_text | escape }}
+          </a>
+        {% endif %}
       </div>
+
     </div>
   </div>
 </section>
@@ -37,7 +64,378 @@
 {% schema %}
 {
   "name": "Hero",
-  "settings": [],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero Content"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "Welcome to Nexus"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main heading",
+      "default": "Discover Your"
+    },
+    {
+      "type": "text",
+      "id": "heading_highlight",
+      "label": "Highlighted heading",
+      "default": "Perfect Style"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Explore our latest collection of quality products, timeless designs, and everyday essentials made for you.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Primary Button"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_text",
+      "label": "Button text",
+      "default": "Shop Collection"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Secondary Button"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_text",
+      "label": "Button text",
+      "default": "Discover Nexus"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Hero Layout"
+    },
+    {
+      "type": "select",
+      "id": "hero_text_alignment",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "color",
+      "id": "hero_heading_color",
+      "label": "Heading color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "hero_highlight_color",
+      "label": "Highlighted text color",
+      "default": "#93C5FD"
+    },
+    {
+      "type": "color",
+      "id": "hero_description_color",
+      "label": "Description color",
+      "default": "#CBD5E1"
+    },
+    {
+      "type": "color",
+      "id": "hero_badge_text_color",
+      "label": "Badge text color",
+      "default": "#BFDBFE"
+    },
+    {
+      "type": "color",
+      "id": "hero_background_start",
+      "label": "Gradient start color",
+      "default": "#0F172A"
+    },
+    {
+      "type": "color",
+      "id": "hero_background_middle",
+      "label": "Gradient middle color",
+      "default": "#172554"
+    },
+    {
+      "type": "color",
+      "id": "hero_background_end",
+      "label": "Gradient end color",
+      "default": "#1D4ED8"
+    },
+    {
+      "type": "range",
+      "id": "hero_padding_top",
+      "label": "Hero padding top",
+      "min": 20,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "hero_padding_bottom",
+      "label": "Hero padding bottom",
+      "min": 20,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Advanced Settings — Layout"
+    },
+    {
+      "type": "select",
+      "id": "advanced_width",
+      "label": "Section width",
+      "options": [
+        { "value": "full", "label": "Full width" },
+        { "value": "boxed", "label": "Boxed" }
+      ],
+      "default": "full"
+    },
+    {
+      "type": "range",
+      "id": "advanced_max_width",
+      "label": "Maximum content width",
+      "min": 600,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "select",
+      "id": "advanced_alignment",
+      "label": "Advanced content alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Spacing — Margin"
+    },
+    {
+      "type": "range",
+      "id": "advanced_margin_top",
+      "label": "Margin top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "advanced_margin_bottom",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "advanced_margin_left",
+      "label": "Margin left",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "advanced_margin_right",
+      "label": "Margin right",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Spacing — Padding"
+    },
+    {
+      "type": "range",
+      "id": "advanced_padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "advanced_padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "advanced_padding_left",
+      "label": "Padding left",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "advanced_padding_right",
+      "label": "Padding right",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Advanced Background"
+    },
+    {
+      "type": "color",
+      "id": "advanced_background",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "image_picker",
+      "id": "advanced_background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "header",
+      "content": "Border and Shadow"
+    },
+    {
+      "type": "select",
+      "id": "advanced_border_style",
+      "label": "Border style",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "solid", "label": "Solid" },
+        { "value": "dashed", "label": "Dashed" },
+        { "value": "dotted", "label": "Dotted" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "range",
+      "id": "advanced_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "advanced_border_color",
+      "label": "Border color",
+      "default": "#DDDDDD"
+    },
+    {
+      "type": "range",
+      "id": "advanced_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "advanced_shadow",
+      "label": "Box shadow",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "header",
+      "content": "Responsive Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "advanced_hide_desktop",
+      "label": "Hide on desktop",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "advanced_hide_tablet",
+      "label": "Hide on tablet",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "advanced_hide_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Custom CSS"
+    },
+    {
+      "type": "text",
+      "id": "advanced_section_id",
+      "label": "Custom section ID",
+      "info": "Leave blank to use the automatic section ID."
+    },
+    {
+      "type": "text",
+      "id": "advanced_custom_class",
+      "label": "Custom CSS class"
+    },
+    {
+      "type": "textarea",
+      "id": "advanced_custom_css",
+      "label": "Custom CSS",
+      "info": "Enter CSS declarations without style tags."
+    }
+  ],
   "presets": [
     {
       "name": "Hero"
@@ -45,3 +443,53 @@
   ]
 }
 {% endschema %}
+
+<style>
+  #advanced-section-{{ adv_dom_id }} {
+    background-image: linear-gradient(
+      to right,
+      {{ section.settings.hero_background_start }},
+      {{ section.settings.hero_background_middle }},
+      {{ section.settings.hero_background_end }}
+    );
+    padding-top: {{ section.settings.hero_padding_top }}px;
+    padding-bottom: {{ section.settings.hero_padding_bottom }}px;
+  }
+
+  #advanced-section-{{ adv_dom_id }} .hero-heading {
+    color: {{ section.settings.hero_heading_color }};
+  }
+
+  #advanced-section-{{ adv_dom_id }} .hero-heading span {
+    color: {{ section.settings.hero_highlight_color }};
+  }
+
+  #advanced-section-{{ adv_dom_id }} .hero-description {
+    color: {{ section.settings.hero_description_color }};
+  }
+
+  #advanced-section-{{ adv_dom_id }} .hero-badge {
+    color: {{ section.settings.hero_badge_text_color }};
+  }
+
+  {% if section.settings.hero_text_alignment == 'center' %}
+    #advanced-section-{{ adv_dom_id }} .hero-content {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+
+    #advanced-section-{{ adv_dom_id }} .hero-buttons {
+      justify-content: center;
+    }
+  {% elsif section.settings.hero_text_alignment == 'right' %}
+    #advanced-section-{{ adv_dom_id }} .hero-content {
+      margin-left: auto;
+      text-align: right;
+    }
+
+    #advanced-section-{{ adv_dom_id }} .hero-buttons {
+      justify-content: flex-end;
+    }
+  {% endif %}
+</style>
