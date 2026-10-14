@@ -1,46 +1,418 @@
-<footer class="site-footer">
+{%- liquid
+  assign adv_id = section.settings.advanced_section_id | default: section.id
+  assign adv_dom_id = adv_id | handleize
+  assign adv_custom_class = section.settings.advanced_custom_class | strip
+  assign footer_menu = section.settings.menu
+-%}
 
-  <div class="footer-container">
+{% render 'section-advanced-styles' %}
 
-    <div>
-      <h2>{{ shop.name }}</h2>
+<footer
+  id="advanced-section-{{ adv_dom_id }}"
+  class="site-footer advanced-section {{ adv_custom_class }}"
+>
+  <div class="footer-container advanced-section__inner">
 
-      <p>
-        Your trusted online store.
-      </p>
+    <div class="footer-brand">
+      {% if section.settings.footer_heading != blank %}
+        <h2>{{ section.settings.footer_heading | escape }}</h2>
+      {% else %}
+        <h2>{{ shop.name | escape }}</h2>
+      {% endif %}
+
+      {% if section.settings.footer_description != blank %}
+        <div class="footer-description">
+          {{ section.settings.footer_description }}
+        </div>
+      {% endif %}
     </div>
 
-    <div class="footer-links">
-
-      <a href="{{ routes.root_url }}">
-        Home
-      </a>
-
-      <a href="{{ routes.all_products_collection_url }}">
-        Shop
-      </a>
-
-      <a href="/pages/about">
-        About
-      </a>
-
-      <a href="/pages/contact">
-        Contact
-      </a>
-
-    </div>
+    <nav class="footer-links" aria-label="Footer navigation">
+      {% if footer_menu != blank %}
+        {% for link in footer_menu.links %}
+          <a href="{{ link.url }}">
+            {{ link.title | escape }}
+          </a>
+        {% endfor %}
+      {% else %}
+        <a href="{{ routes.root_url }}">Home</a>
+        <a href="{{ routes.all_products_collection_url }}">Shop</a>
+        <a href="/pages/about">About</a>
+        <a href="/pages/contact">Contact</a>
+      {% endif %}
+    </nav>
 
   </div>
 
   <div class="footer-bottom">
-    © {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.
+    {{ section.settings.copyright_text | escape }}
+    {% if section.settings.show_year %}
+      {{ 'now' | date: '%Y' }}
+    {% endif %}
+    {{ section.settings.copyright_suffix | escape }}
+    {% if section.settings.show_store_name %}
+      {{ shop.name | escape }}
+    {% endif %}
   </div>
-
 </footer>
 
 {% schema %}
 {
   "name": "Footer",
-  "settings": []
+  "settings": [
+    {
+      "type": "header",
+      "content": "Footer Content"
+    },
+    {
+      "type": "text",
+      "id": "footer_heading",
+      "label": "Footer heading",
+      "default": "Store name",
+      "info": "Leave blank to use your store name."
+    },
+    {
+      "type": "richtext",
+      "id": "footer_description",
+      "label": "Description",
+      "default": "<p>Your trusted online store.</p>"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Footer menu"
+    },
+    {
+      "type": "header",
+      "content": "Copyright"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright text",
+      "default": "© "
+    },
+    {
+      "type": "checkbox",
+      "id": "show_year",
+      "label": "Show current year",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "copyright_suffix",
+      "label": "Copyright ending",
+      "default": ". All rights reserved."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_store_name",
+      "label": "Show store name in copyright",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Footer Colors"
+    },
+    {
+      "type": "color",
+      "id": "footer_background",
+      "label": "Background color",
+      "default": "#0F172A"
+    },
+    {
+      "type": "color",
+      "id": "footer_text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "footer_link_color",
+      "label": "Link color",
+      "default": "#CBD5E1"
+    },
+    {
+      "type": "header",
+      "content": "Advanced Layout"
+    },
+    {
+      "type": "select",
+      "id": "advanced_width",
+      "label": "Section width",
+      "options": [
+        { "value": "full", "label": "Full width" },
+        { "value": "boxed", "label": "Boxed" }
+      ],
+      "default": "full"
+    },
+    {
+      "type": "range",
+      "id": "advanced_max_width",
+      "label": "Maximum content width",
+      "min": 600,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "select",
+      "id": "advanced_alignment",
+      "label": "Content alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "advanced_margin_top",
+      "label": "Margin top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "advanced_margin_bottom",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "advanced_padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "advanced_padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "advanced_padding_left",
+      "label": "Padding left",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "advanced_padding_right",
+      "label": "Padding right",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Border and Shadow"
+    },
+    {
+      "type": "select",
+      "id": "advanced_border_style",
+      "label": "Border style",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "solid", "label": "Solid" },
+        { "value": "dashed", "label": "Dashed" },
+        { "value": "dotted", "label": "Dotted" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "range",
+      "id": "advanced_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "advanced_border_color",
+      "label": "Border color",
+      "default": "#DDDDDD"
+    },
+    {
+      "type": "range",
+      "id": "advanced_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "advanced_shadow",
+      "label": "Box shadow",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "header",
+      "content": "Responsive Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "advanced_hide_desktop",
+      "label": "Hide on desktop",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "advanced_hide_tablet",
+      "label": "Hide on tablet",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "advanced_hide_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Custom CSS"
+    },
+    {
+      "type": "text",
+      "id": "advanced_section_id",
+      "label": "Custom section ID"
+    },
+    {
+      "type": "text",
+      "id": "advanced_custom_class",
+      "label": "Custom CSS class"
+    },
+    {
+      "type": "textarea",
+      "id": "advanced_custom_css",
+      "label": "Custom CSS",
+      "info": "Enter CSS declarations without style tags."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer"
+    }
+  ]
 }
 {% endschema %}
+
+<style>
+  #advanced-section-{{ adv_dom_id }} {
+    background-color: {{ section.settings.footer_background }};
+    color: {{ section.settings.footer_text_color }};
+  }
+
+  #advanced-section-{{ adv_dom_id }} .footer-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  #advanced-section-{{ adv_dom_id }} .footer-brand h2 {
+    color: {{ section.settings.footer_text_color }};
+    margin: 0 0 12px;
+  }
+
+  #advanced-section-{{ adv_dom_id }} .footer-description {
+    color: {{ section.settings.footer_text_color }};
+  }
+
+  #advanced-section-{{ adv_dom_id }} .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  #advanced-section-{{ adv_dom_id }} .footer-links a {
+    color: {{ section.settings.footer_link_color }};
+    text-decoration: none;
+  }
+
+  #advanced-section-{{ adv_dom_id }} .footer-links a:hover {
+    text-decoration: underline;
+  }
+
+  #advanced-section-{{ adv_dom_id }} .footer-bottom {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,.18);
+    color: {{ section.settings.footer_text_color }};
+  }
+
+  #advanced-section-{{ adv_dom_id }} .footer-container.advanced-section__inner {
+    {% if section.settings.advanced_width == 'boxed' %}
+      max-width: {{ section.settings.advanced_max_width }}px;
+      margin-left: auto;
+      margin-right: auto;
+    {% endif %}
+  }
+
+  {% if section.settings.advanced_alignment == 'center' %}
+    #advanced-section-{{ adv_dom_id }} .footer-container {
+      justify-content: center;
+      text-align: center;
+    }
+
+    #advanced-section-{{ adv_dom_id }} .footer-links {
+      justify-content: center;
+    }
+  {% elsif section.settings.advanced_alignment == 'right' %}
+    #advanced-section-{{ adv_dom_id }} .footer-container {
+      justify-content: flex-end;
+      text-align: right;
+    }
+
+    #advanced-section-{{ adv_dom_id }} .footer-links {
+      justify-content: flex-end;
+    }
+  {% endif %}
+
+  @media screen and (max-width: 749px) {
+    #advanced-section-{{ adv_dom_id }} .footer-container {
+      flex-direction: column;
+      gap: 24px;
+    }
+  }
+</style>
