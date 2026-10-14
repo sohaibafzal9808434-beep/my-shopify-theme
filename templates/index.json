@@ -100,7 +100,7 @@
       "type": "product-collection",
       "name": "Product Collection",
       "settings": {
-        "collection": "",
+        "collection": "frontpage",
         "products_to_show": 8,
         "heading": "Featured Products",
         "show_description": false,
