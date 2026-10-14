@@ -1,75 +1,87 @@
-
 {%- liquid
   assign adv = section.settings
   assign adv_id = adv.advanced_section_id | default: section.id
   assign adv_dom_id = adv_id | handleize
-  assign adv_custom_class = adv.advanced_custom_class | strip
   assign adv_bg = adv.advanced_background
   assign adv_bg_image = adv.advanced_background_image
   assign adv_border_color = adv.advanced_border_color
   assign adv_shadow = adv.advanced_shadow
 -%}
 
-{%- style -%}
-  #{{ adv_dom_id }} {
+<style>
+  #advanced-section-{{ adv_dom_id }} {
+    box-sizing: border-box;
+    width: 100%;
     margin-top: {{ adv.advanced_margin_top | default: 0 }}px;
     margin-right: {{ adv.advanced_margin_right | default: 0 }}px;
     margin-bottom: {{ adv.advanced_margin_bottom | default: 0 }}px;
     margin-left: {{ adv.advanced_margin_left | default: 0 }}px;
-
-    padding-top: {{ adv.advanced_padding_top | default: 24 }}px;
-    padding-right: {{ adv.advanced_padding_right | default: 16 }}px;
-    padding-bottom: {{ adv.advanced_padding_bottom | default: 24 }}px;
-    padding-left: {{ adv.advanced_padding_left | default: 16 }}px;
-
+    padding-top: {{ adv.advanced_padding_top | default: 0 }}px;
+    padding-right: {{ adv.advanced_padding_right | default: 0 }}px;
+    padding-bottom: {{ adv.advanced_padding_bottom | default: 0 }}px;
+    padding-left: {{ adv.advanced_padding_left | default: 0 }}px;
     background-color: {{ adv_bg | default: 'transparent' }};
     {% if adv_bg_image != blank %}
       background-image: url('{{ adv_bg_image | image_url: width: 2000 }}');
       background-size: cover;
       background-position: center;
-      background-repeat: no-repeat;
     {% endif %}
-
     border-style: {{ adv.advanced_border_style | default: 'none' }};
     border-width: {{ adv.advanced_border_width | default: 0 }}px;
-    border-color: {{ adv_border_color | default: '#e5e7eb' }};
+    border-color: {{ adv_border_color | default: '#dddddd' }};
     border-radius: {{ adv.advanced_border_radius | default: 0 }}px;
-
-    {% case adv_shadow %}
-      {% when 'small' %}
-        box-shadow: 0 1px 3px rgb(0 0 0 / 12%);
-      {% when 'medium' %}
-        box-shadow: 0 4px 12px rgb(0 0 0 / 12%);
-      {% when 'large' %}
-        box-shadow: 0 12px 30px rgb(0 0 0 / 16%);
-      {% else %}
-        box-shadow: none;
-    {% endcase %}
-
-    {% if adv.advanced_position == 'relative' %}
-      position: relative;
-    {% elsif adv.advanced_position == 'absolute' %}
-      position: absolute;
-    {% elsif adv.advanced_position == 'sticky' %}
-      position: sticky;
-    {% else %}
-      position: relative;
-    {% endif %}
-
+    position: {{ adv.advanced_position | default: 'static' }};
     z-index: {{ adv.advanced_z_index | default: 1 }};
-    {% if adv.advanced_min_height > 0 %}
-      min-height: {{ adv.advanced_min_height }}px;
+  }
+
+  #advanced-section-{{ adv_dom_id }} .advanced-section__inner {
+    width: 100%;
+    {% if adv.advanced_width == 'boxed' %}
+      max-width: {{ adv.advanced_max_width | default: 1200 }}px;
+      margin-left: auto;
+      margin-right: auto;
     {% endif %}
   }
 
-  #{{ adv_dom_id }} .advanced-section__inner {
-    gap: {{ adv.advanced_gap | default: 24 }}px;
-    --advanced-max-width: {{ adv.advanced_max_width | default: 1200 }}px;
-  }
+  {% if adv.advanced_alignment == 'center' %}
+    #advanced-section-{{ adv_dom_id }} .advanced-section__inner {
+      text-align: center;
+    }
+  {% elsif adv.advanced_alignment == 'right' %}
+    #advanced-section-{{ adv_dom_id }} .advanced-section__inner {
+      text-align: right;
+    }
+  {% endif %}
+
+  {% if adv_shadow == 'small' %}
+    #advanced-section-{{ adv_dom_id }} { box-shadow: 0 2px 6px rgba(0,0,0,.12); }
+  {% elsif adv_shadow == 'medium' %}
+    #advanced-section-{{ adv_dom_id }} { box-shadow: 0 4px 14px rgba(0,0,0,.16); }
+  {% elsif adv_shadow == 'large' %}
+    #advanced-section-{{ adv_dom_id }} { box-shadow: 0 8px 28px rgba(0,0,0,.20); }
+  {% endif %}
+
+  {% if adv.advanced_hide_desktop %}
+    @media screen and (min-width: 990px) {
+      #advanced-section-{{ adv_dom_id }} { display: none !important; }
+    }
+  {% endif %}
+
+  {% if adv.advanced_hide_tablet %}
+    @media screen and (min-width: 750px) and (max-width: 989px) {
+      #advanced-section-{{ adv_dom_id }} { display: none !important; }
+    }
+  {% endif %}
+
+  {% if adv.advanced_hide_mobile %}
+    @media screen and (max-width: 749px) {
+      #advanced-section-{{ adv_dom_id }} { display: none !important; }
+    }
+  {% endif %}
 
   {% if adv.advanced_custom_css != blank %}
-    #{{ adv_dom_id }} {
+    #advanced-section-{{ adv_dom_id }} {
       {{ adv.advanced_custom_css }}
     }
   {% endif %}
-{%- endstyle -%}
+</style>

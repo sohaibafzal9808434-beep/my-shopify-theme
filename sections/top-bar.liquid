@@ -1,6 +1,17 @@
 
-<div class="bg-slate-900 px-4 py-3 text-white">
-  <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 md:flex-row">
+{%- liquid
+  assign adv_id = section.settings.advanced_section_id | default: section.id
+  assign adv_dom_id = adv_id | handleize
+  assign adv_custom_class = section.settings.advanced_custom_class | strip
+-%}
+
+{% render 'section-advanced-styles' %}
+
+<section
+  id="advanced-section-{{ adv_dom_id }}"
+  class="advanced-section bg-slate-900 px-4 py-3 text-white{% if adv_custom_class != blank %} {{ adv_custom_class | escape }}{% endif %}"
+>
+  <div class="advanced-section__inner mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 md:flex-row">
 
     <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs sm:text-sm">
 
@@ -16,7 +27,6 @@
         <a href="tel:{{ section.settings.phone | remove: ' ' | escape }}"
            class="inline-flex items-center gap-2 transition hover:text-blue-300">
           {% render 'icon', name: 'phone', size: 16 %}
-          {% render 'icon' , name: 'mail', size: 16 %}
           <span>{{ section.settings.phone | escape }}</span>
         </a>
       {% endif %}
@@ -44,48 +54,32 @@
     <div class="flex items-center gap-4">
 
       {% if section.settings.show_facebook and section.settings.facebook_url != blank %}
-        <a href="{{ section.settings.facebook_url }}"
-           target="_blank"
-           rel="noopener noreferrer"
-           aria-label="Facebook"
-           class="transition hover:text-blue-300">
+        <a href="{{ section.settings.facebook_url }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="transition hover:text-blue-300">
           {% render 'icon', name: 'facebook', size: 18 %}
         </a>
       {% endif %}
 
       {% if section.settings.show_tiktok and section.settings.tiktok_url != blank %}
-        <a href="{{ section.settings.tiktok_url }}"
-           target="_blank"
-           rel="noopener noreferrer"
-           aria-label="TikTok"
-           class="transition hover:text-blue-300">
+        <a href="{{ section.settings.tiktok_url }}" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="transition hover:text-blue-300">
           {% render 'icon', name: 'tiktok', size: 18 %}
         </a>
       {% endif %}
 
       {% if section.settings.show_instagram and section.settings.instagram_url != blank %}
-        <a href="{{ section.settings.instagram_url }}"
-           target="_blank"
-           rel="noopener noreferrer"
-           aria-label="Instagram"
-           class="transition hover:text-gray-300">
+        <a href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="transition hover:text-gray-300">
           {% render 'icon', name: 'instagram', size: 18 %}
         </a>
       {% endif %}
 
       {% if section.settings.show_youtube and section.settings.youtube_url != blank %}
-        <a href="{{ section.settings.youtube_url }}"
-           target="_blank"
-           rel="noopener noreferrer"
-           aria-label="YouTube"
-           class="transition hover:text-blue-300">
+        <a href="{{ section.settings.youtube_url }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="transition hover:text-blue-300">
           {% render 'icon', name: 'youtube', size: 20 %}
         </a>
       {% endif %}
 
     </div>
   </div>
-</div>
+</section>
 
 {% schema %}
 {
@@ -186,19 +180,248 @@
       "label": "YouTube channel URL"
     },
     {
-  "type": "header",
-  "content": "Advanced Settings"
-},
-{
-  "type": "range",
-  "id": "advanced_padding_top",
-  "label": "Padding top",
-  "min": 0,
-  "max": 100,
-  "step": 4,
-  "unit": "px",
-  "default": 0
-}
+      "type": "header",
+      "content": "Advanced Settings"
+    },
+    {
+      "type": "select",
+      "id": "advanced_width",
+      "label": "Content width",
+      "options": [
+        { "value": "full", "label": "Full width" },
+        { "value": "boxed", "label": "Boxed" }
+      ],
+      "default": "full"
+    },
+    {
+      "type": "range",
+      "id": "advanced_max_width",
+      "label": "Maximum content width",
+      "min": 600,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "select",
+      "id": "advanced_alignment",
+      "label": "Content alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Margin"
+    },
+    {
+      "type": "range",
+      "id": "advanced_margin_top",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "advanced_margin_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "advanced_margin_left",
+      "label": "Left",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "advanced_margin_right",
+      "label": "Right",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "advanced_padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "advanced_padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "advanced_padding_left",
+      "label": "Left",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "advanced_padding_right",
+      "label": "Right",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "advanced_background",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "image_picker",
+      "id": "advanced_background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "header",
+      "content": "Border and shadow"
+    },
+    {
+      "type": "select",
+      "id": "advanced_border_style",
+      "label": "Border style",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "solid", "label": "Solid" },
+        { "value": "dashed", "label": "Dashed" },
+        { "value": "dotted", "label": "Dotted" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "range",
+      "id": "advanced_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "advanced_border_color",
+      "label": "Border color",
+      "default": "#DDDDDD"
+    },
+    {
+      "type": "range",
+      "id": "advanced_border_radius",
+      "label": "Corner radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "advanced_shadow",
+      "label": "Shadow",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "header",
+      "content": "Responsive visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "advanced_hide_desktop",
+      "label": "Hide on desktop",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "advanced_hide_tablet",
+      "label": "Hide on tablet",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "advanced_hide_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Position"
+    },
+    {
+      "type": "range",
+      "id": "advanced_z_index",
+      "label": "Z-index",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "text",
+      "id": "advanced_section_id",
+      "label": "Custom section ID"
+    },
+    {
+      "type": "text",
+      "id": "advanced_custom_class",
+      "label": "Custom CSS class"
+    },
+    {
+      "type": "textarea",
+      "id": "advanced_custom_css",
+      "label": "Custom CSS declarations",
+      "info": "CSS declarations only, without selectors or curly braces."
+    }
   ],
   "presets": [
     {
