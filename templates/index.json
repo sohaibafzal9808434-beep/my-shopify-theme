@@ -9,10 +9,6 @@
  */
 {
   "sections": {
-    "hero": {
-      "type": "hero",
-      "settings": {}
-    },
     "top_bar_tdgBWE": {
       "type": "top-bar",
       "name": "Top contact bar",
@@ -34,10 +30,14 @@
         "youtube_url": "",
         "advanced_padding_top": 0
       }
+    },
+    "hero": {
+      "type": "hero",
+      "settings": {}
     }
   },
   "order": [
-    "hero",
-    "top_bar_tdgBWE"
+    "top_bar_tdgBWE",
+    "hero"
   ]
 }
