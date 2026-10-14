@@ -1,0 +1,54 @@
+
+/* Shared Elementor-style controls for Shopify sections */
+
+.advanced-section {
+  box-sizing: border-box;
+  position: relative;
+  min-width: 0;
+}
+
+.advanced-section *,
+.advanced-section *::before,
+.advanced-section *::after {
+  box-sizing: border-box;
+}
+
+.advanced-section__inner {
+  width: 100%;
+  margin-inline: auto;
+  min-width: 0;
+}
+
+.advanced-section[data-width="boxed"] .advanced-section__inner {
+  max-width: var(--advanced-max-width, 1200px);
+}
+
+.advanced-section[data-align="left"] .advanced-section__inner {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.advanced-section[data-align="center"] .advanced-section__inner {
+  margin-inline: auto;
+}
+
+.advanced-section[data-align="right"] .advanced-section__inner {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.advanced-section[data-hide-desktop="true"] {
+  display: none !important;
+}
+
+@media (max-width: 989px) {
+  .advanced-section[data-hide-tablet="true"] {
+    display: none !important;
+  }
+}
+
+@media (max-width: 749px) {
+  .advanced-section[data-hide-mobile="true"] {
+    display: none !important;
+  }
+}
